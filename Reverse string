@@ -1,0 +1,34 @@
+include irvine32.inc
+
+.data
+	str1 byte "faqiha was amazing ",0
+	namesize =($ -str1)-1
+	
+.code
+main proc
+	xor eax,eax
+	xor ecx,ecx
+	xor edx,edx
+	xor ebx,ebx
+	
+	mov esi,0
+	mov ecx ,namesize
+L1:
+	movzx eax,str1[esi]
+	push eax
+	inc esi
+loop L1
+	mov ecx,namesize
+	mov esi,0
+L2:
+	pop eax
+	mov str1[esi],al
+	inc esi
+Loop L2
+	;display the string
+	mov edx,0
+	mov edx,offset str1
+	call writestring
+	call crlf
+main endp
+end main
