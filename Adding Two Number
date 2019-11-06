@@ -1,0 +1,25 @@
+include irvine32.inc
+;procedure for adding two Number
+.data
+	thesum Dword ?
+	
+	
+.code
+main proc
+	xor eax,eax
+	xor ecx,ecx
+	xor edx,edx
+	xor ebx,ebx
+	
+	mov eax,100
+	mov ebx ,200
+	mov ecx,3000
+	call sumof
+	mov thesum,sumof
+main endp
+	sumof proc
+	add eax,ebx
+	add eax,ecx
+	ret
+	sumof endp
+end main
