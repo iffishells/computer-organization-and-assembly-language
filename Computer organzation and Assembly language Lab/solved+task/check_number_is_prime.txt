@@ -1,0 +1,118 @@
+include irvine32.inc
+
+
+.data
+
+	msg byte "This is Number is Even ",0
+	msg2  byte "This is  odd Number  " ,0
+.code
+
+main proc
+	
+	call tell_even_or_not
+
+
+
+main endp
+	tell_even_or_not proc
+	
+	xor eax,eax
+	xor ebx ,ebx
+	mov al,59	;cheking the number 
+	mov bl,2	;
+	
+	div bl
+	;call dumpregs
+	cmp ah,0
+	je yes_even
+	jne not_even
+	
+	yes_even:
+		mov edx,0
+		mov edx,offset msg
+		call writestring
+		call crlf
+		jmp next
+	not_even:
+		mov edx,0
+		mov edx,offset msg2
+		call writestring
+		call crlf
+		
+	next:
+		
+	;ret
+	tell_even_or_not endp
+	
+end main
+
+
+include irvine32.inc
+
+
+.data
+	array byte 4,5,6,7,8
+	prime_number byte "this is prime number" ,0
+	not_prime_number byte "This is not prime number ",0
+	val byte ?
+	two byte 2
+	three byte 3
+.code
+
+main proc
+	
+	xor edx,edx
+	xor ecx,ecx
+	xor eax,eax
+	xor ebx,ebx
+	
+	
+	mov esi,offset array
+	
+	mov ecx ,lengthof array
+	
+	L1:
+		mov al,[esi] ;working fine 
+		
+		mov al, 1         
+		JE isPrime         
+
+		cmp al,2          
+		JE isPrime         
+
+		cmp al,3          
+		JE isPrime         
+
+		mov edx,0
+		mov val,al          
+		
+		div two            
+		cmp dl,0          
+		JE notPrime        
+
+		mov edx,0
+		mov al,val          
+			
+		div three         
+		cmp edx,0          
+		JNE isPrime        
+					
+	
+	
+	
+		inc esi
+		
+	loop L1
+	isPrime:
+		mov edx,offset prime_number
+		call writestring
+		call crlf
+		jmp next
+	notPrime:
+		mov edx,offset not_prime_number
+		call writestring
+		call crlf
+	next:
+
+main endp	
+end main
